@@ -29,11 +29,11 @@ have a look at the script for more information.
 
 use `vagrant ssh lxcclient` in order to ssh to the client box.
 
-1. [lxcclient] create a wheezy 64bit container
+1) [lxcclient] create a wheezy 64bit container
 
 `sudo MIRROR=http://httpredir.debian.org/debian lxc-create -n wheezy64 -t debian -- -r wheezy -a amd64`
 
-2. [lxcclient] add some metadata
+2) [lxcclient] add some metadata
 
 ```
 sudo bash -c 'cat << EOF > /var/lib/lxc/wheezy64/metadata.yaml
@@ -83,33 +83,33 @@ ff02::2 ip6-allrouters
 EOF'
 ```
 
-3. [lxcclient] package the lxc to an lxd image
+3) [lxcclient] package the lxc to an lxd image
 
 ```
 sudo bash -c 'cd /var/lib/lxc/wheezy64/ && tar caf /tmp/wheezy64.tar.gz * && chown vagrant:vagrant /tmp//tmp/wheezy64.tar.gz'
 ```
 
-4. [lxcclient] add lxd server as remote
+4) [lxcclient] add lxd server as remote
 
 ```
 lxc remote add mylxd 192.168.33.8 --accept-certificate
 ```
 
-5. [lxcclient] import the wheezy64 tarball to the local image store
+5) [lxcclient] import the wheezy64 tarball to the local image store
 
 ```
 lxc image import /tmp/wheezy64.tar.gz --alias wheezy64 --public
 lxc image list
 ```
 
-6. [lxcclient] copy image to the server
+6) [lxcclient] copy image to the server
 
 ```
 lxc image copy wheezy64 mylxd: --copy-aliases --public
 lxc image list mylxd:
 ```
 
-7. [lxcclient] remove local image
+7) [lxcclient] remove local image
 
 ```
 lxc image delete wheezy64
@@ -117,13 +117,13 @@ lxc image copy mylxd:wheezy64 local: --copy-aliases
 lxc image list
 ```
 
-8. [lxcclient] create new container from image
+8) [lxcclient] create new container from image
 
 ```
 lxc launch wheezy64 mylxc
 ```
 
-9. [lxcclient] execute bash in container
+9) [lxcclient] execute bash in container
 
 ```
 lxc exec mylxc /bin/bash
