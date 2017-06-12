@@ -17,7 +17,7 @@ Vagrant.configure(2) do |config|
     #lxcserver.vm.hostname "lxcserver"
     lxcserver.vm.provision :shell, path: "server_provision.sh"
     lxcserver.vm.network "private_network", ip: "192.168.33.8"
-    lxcserver.vm.network "forwarded_port", guest: 8443, host: 8443
+    lxcserver.vm.network "forwarded_port", guest: 8443, host: 1234
   end
   config.vm.define "lxcclient" do |lxcclient|
     #lxcclient.vm.hostname "lxcclient"
