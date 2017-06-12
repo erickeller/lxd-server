@@ -95,6 +95,8 @@ sudo bash -c 'cd /var/lib/lxc/jessie64/ && tar caf /tmp/jessie64.tar.gz * && cho
 lxc remote add mylxd 192.168.33.8 --accept-certificate
 ```
 
+When asked for a password specify: unsecret
+
 5) [lxcclient] import the jessie64 tarball to the local image store
 
 ```
