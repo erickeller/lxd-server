@@ -29,23 +29,23 @@ have a look at the script for more information.
 
 use `vagrant ssh lxcclient` in order to ssh to the client box.
 
-1) [lxcclient] create a wheezy 64bit container
+1) [lxcclient] create a jessie 64bit container
 
-`sudo MIRROR=http://httpredir.debian.org/debian lxc-create -n wheezy64 -t debian -- -r wheezy -a amd64`
+`sudo MIRROR=http://httpredir.debian.org/debian lxc-create -n jessie64 -t debian -- -r jessie -a amd64`
 
 2) [lxcclient] add some metadata
 
 ```
-sudo bash -c 'cat << EOF > /var/lib/lxc/wheezy64/metadata.yaml
+sudo bash -c 'cat << EOF > /var/lib/lxc/jessie64/metadata.yaml
 {
     "architecture": "x86_64",
     "creation_date": 1455748920,
     "properties": {
         "architecture": "x86_64",
-        "description": "debian wheezy x86_64 (default) (20160217_22:42)",
-        "name": "debian-wheezy-x86_64-default-20160217_22:42",
+        "description": "debian jessie x86_64 (default) (20160217_22:42)",
+        "name": "debian-jessie-x86_64-default-20160217_22:42",
         "os": "debian",
-        "release": "wheezy",
+        "release": "jessie",
         "variant": "default"
     },
     "templates": {
@@ -69,8 +69,8 @@ EOF'
 let's create the templates
 
 ```
-sudo bash -c "mkdir -p /var/lib/lxc/wheezy64/templates && echo '{{ container.name }}' > /var/lib/lxc/wheezy64/templates/hostname.tpl"
-sudo bash -c 'cat << EOF > /var/lib/lxc/wheezy64/templates/hosts.tpl
+sudo bash -c "mkdir -p /var/lib/lxc/jessie64/templates && echo '{{ container.name }}' > /var/lib/lxc/jessie64/templates/hostname.tpl"
+sudo bash -c 'cat << EOF > /var/lib/lxc/jessie64/templates/hosts.tpl
 127.0.0.1   localhost
 127.0.1.1   {{ container.name }}
 
@@ -86,7 +86,7 @@ EOF'
 3) [lxcclient] package the lxc to an lxd image
 
 ```
-sudo bash -c 'cd /var/lib/lxc/wheezy64/ && tar caf /tmp/wheezy64.tar.gz * && chown vagrant:vagrant /tmp//tmp/wheezy64.tar.gz'
+sudo bash -c 'cd /var/lib/lxc/jessie64/ && tar caf /tmp/jessie64.tar.gz * && chown vagrant:vagrant /tmp//tmp/jessie64.tar.gz'
 ```
 
 4) [lxcclient] add lxd server as remote
@@ -95,32 +95,32 @@ sudo bash -c 'cd /var/lib/lxc/wheezy64/ && tar caf /tmp/wheezy64.tar.gz * && cho
 lxc remote add mylxd 192.168.33.8 --accept-certificate
 ```
 
-5) [lxcclient] import the wheezy64 tarball to the local image store
+5) [lxcclient] import the jessie64 tarball to the local image store
 
 ```
-lxc image import /tmp/wheezy64.tar.gz --alias wheezy64 --public
+lxc image import /tmp/jessie64.tar.gz --alias jessie64 --public
 lxc image list
 ```
 
 6) [lxcclient] copy image to the server
 
 ```
-lxc image copy wheezy64 mylxd: --copy-aliases --public
+lxc image copy jessie64 mylxd: --copy-aliases --public
 lxc image list mylxd:
 ```
 
 7) [lxcclient] remove local image
 
 ```
-lxc image delete wheezy64
-lxc image copy mylxd:wheezy64 local: --copy-aliases
+lxc image delete jessie64
+lxc image copy mylxd:jessie64 local: --copy-aliases
 lxc image list
 ```
 
 8) [lxcclient] create new container from image
 
 ```
-lxc launch wheezy64 mylxc
+lxc launch jessie64 mylxc
 ```
 
 9) [lxcclient] execute bash in container
