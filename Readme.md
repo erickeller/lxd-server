@@ -86,7 +86,7 @@ EOF'
 3) [lxcclient] package the lxc to an lxd image
 
 ```
-sudo bash -c 'cd /var/lib/lxc/jessie64/ && tar caf /tmp/jessie64.tar.gz * && chown ubuntu:ubuntu /tmp//tmp/jessie64.tar.gz'
+sudo bash -c 'cd /var/lib/lxc/jessie64/ && tar caf /tmp/jessie64.tar.gz * && chown ubuntu:ubuntu /tmp/jessie64.tar.gz'
 ```
 
 4) [lxcclient] add lxd server as remote
