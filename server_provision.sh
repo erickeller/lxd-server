@@ -6,5 +6,5 @@ apt-get dist-upgrade -y >/dev/null 2>&1
 apt-get install -y lxd lxc >/dev/null 2>&1
 adduser ubuntu lxd
 lxc list
-lxc config set core.https_address "192.168.33.8:8443"
+lxc config set core.https_address "[::]:8443"
 lxc config set core.trust_password "unsecret"
