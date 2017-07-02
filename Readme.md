@@ -29,7 +29,9 @@ have a look at the script for more information.
 
 use `vagrant ssh lxcclient` in order to ssh to the client box.
 
-1) [lxcclient] create a jessie 64bit container
+*Important Note:* Speeding up, you can run the `/vagrant/create-lxc-image.sh` script on the [lxcclient] and skip 1-3 steps.
+
+1) [lxcclient] create a jessie 64 bit container
 
 `sudo MIRROR=http://httpredir.debian.org/debian lxc-create -n jessie64 -t debian -- -r jessie -a amd64`
 
@@ -86,7 +88,7 @@ EOF'
 3) [lxcclient] package the lxc to an lxd image
 
 ```
-sudo bash -c 'cd /var/lib/lxc/jessie64/ && tar caf /tmp/jessie64.tar.gz * && chown ubuntu:ubuntu /tmp/jessie64.tar.gz'
+sudo bash -c 'cd /var/lib/lxc/jessie64/ && tar caf /tmp/jessie64.tar.xz * && chown ubuntu:ubuntu /tmp/jessie64.tar.xz'
 ```
 
 4) [lxcclient] add lxd server as remote
@@ -98,14 +100,14 @@ lxc remote add mylxd 192.168.33.8 --accept-certificate --password=unsecret
 5) [lxcclient] import the jessie64 tarball to the local image store
 
 ```
-lxc image import /tmp/jessie64.tar.gz --alias jessie64 --public
+lxc image import /tmp/jessie64*.tar.xz --alias jessie64 --public
 lxc image list
 ```
 
 5.1) [lxcclient] import the jessie64 tarball to the remote image store
 
 ```
-lxc image import /tmp/jessie64.tar.gz mylxd: --alias jessie64 --public
+lxc image import /tmp/jessie64*.tar.xz mylxd: --alias jessie64 --public
 ```
 
 6) [lxcclient] copy image to the server
