@@ -102,7 +102,15 @@ lxc image import /tmp/jessie64.tar.gz --alias jessie64 --public
 lxc image list
 ```
 
+5.1) [lxcclient] import the jessie64 tarball to the remote image store
+
+```
+lxc image import /tmp/jessie64.tar.gz mylxd: --alias jessie64 --public
+```
+
 6) [lxcclient] copy image to the server
+
+Note: This is optional if you used executed the 5.1 step
 
 ```
 lxc image copy jessie64 mylxd: --copy-aliases --public
