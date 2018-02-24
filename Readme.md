@@ -6,6 +6,8 @@ With the help of Stephan Graber https://github.com/lxc/lxd/issues/1581 I setup t
 # Prerequisites
 
 Install vagrant: https://www.vagrantup.com/downloads.html
+Install virtualbox: https://www.virtualbox.org/wiki/Downloads
+Install landrush vagrant plugin: `vagrant plugin install landrush`
 
 # Getting started
 
@@ -16,9 +18,11 @@ Notice: select the appropriate interface to bridge if vagrant ask.
 
 lxcserver:
 192.168.33.8:8443
+fqdn: lxcserver.vagrant.test
 
 lxcclient:
 192.168.33.9
+fqdn: lxcclient.vagrant.test
 
 # Provision
 
@@ -95,6 +99,8 @@ sudo bash -c 'cd /var/lib/lxc/jessie64/ && tar caf /tmp/jessie64.tar.xz * && cho
 
 ```
 lxc remote add mylxd 192.168.33.8 --accept-certificate --password=unsecret
+# or
+lxc remote add mylxd lxcserver.vagrant.test --accept-certificate --password=unsecret
 ```
 
 5) [lxcclient] import the jessie64 tarball to the local image store

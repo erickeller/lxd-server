@@ -14,14 +14,15 @@ Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/xenial64"
+  config.landrush.enabled = true
   config.vm.define "lxcserver" do |lxcserver|
-    lxcserver.vm.host_name = 'lxcserver'
+    lxcserver.vm.host_name = 'lxcserver.vagrant.test'
     lxcserver.vm.provision :shell, path: "server_provision.sh"
     lxcserver.vm.network "private_network", ip: "192.168.33.8"
     lxcserver.vm.network "forwarded_port", guest: 8443, host: 1234
   end
   config.vm.define "lxcclient" do |lxcclient|
-    lxcclient.vm.host_name = 'lxcclient'
+    lxcclient.vm.host_name = 'lxcclient.vagrant.test'
     lxcclient.vm.provision :shell, path: "client_provision.sh"
     lxcclient.vm.network "private_network", ip: "192.168.33.9"
   end
